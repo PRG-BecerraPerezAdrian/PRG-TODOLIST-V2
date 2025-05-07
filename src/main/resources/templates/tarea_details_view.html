@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>​
+<HTML xmlns:th="http://www.thymeleaf.org" lang="és">​
+<body>​
+	<div>​
+		<h2 th:text="'Tarea con código' + ${tarea.codigo} "></h2>​
+		<ul>​
+			<li>​
+				<strong>Usuari: </strong>​
+				<span th:text="${tarea.usuario}"></span>​
+			</li>​
+
+			<li>​
+				<strong>Descripció: </strong>​
+				<span th:text="${tarea.descripcion}"></span>​
+			</li>​
+
+			<li>​
+				<strong>Venciment </strong>​
+				<span th:text="${tarea.fechaVencimiento}"></span>​
+			</li>​
+		</ul>​
+	</div>​
+</body>​
+</HTML>
