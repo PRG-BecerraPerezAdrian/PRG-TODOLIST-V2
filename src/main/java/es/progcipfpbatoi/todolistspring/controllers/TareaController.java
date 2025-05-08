@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Map;
 
 @Controller
@@ -43,7 +44,6 @@ public class TareaController {
     }
 
     @PostMapping("/tarea-add")
-    @ResponseBody
     public String postAddAction(@RequestParam Map<String, String> params) {
     	
     	try {
@@ -74,13 +74,9 @@ public class TareaController {
 	        		prioridad, realizadaBoolean, fecha, hora);
 	        
 	        tareaRepository.add(tarea);
-	        return "<html>" +
-	                "<body>Tarea " + tarea.getCodigo() + " recibida con éxito</body>" +
-	                "</html>";
+	        return "redirect:/tareas";
     	} catch(NotFoundException ex) {
-    		return "<html><body>Error de procesamiento:"
-    				+ "La tarea no ha "
-    				+ "podido ser creada</body></html>";
+    		return "error";
     	}
     }
     
@@ -94,6 +90,49 @@ public class TareaController {
 	    	return "tarea_details_view";
     	} catch(NotFoundException ex) {
     		return "error";
+    	}
+    }
+    
+    @GetMapping("/tareas")
+    public String showTareas(
+    		@RequestParam Map<String, String> params,
+    		Model model) {
+    	
+    	try {
+    	String usuario = params.get("usuario");
+    	model.addAttribute("usuario", usuario);
+    	
+    	ArrayList<Tarea> tareas;
+    	if (usuario == null || usuario.equals("")) {
+    		tareas = tareaRepository.findAll();
+    		
+    	} else {
+    		tareas = tareaRepository.findAll(usuario);
+    	}
+    	
+    	
+    	model.addAttribute("tareas", tareas);
+    	model.addAttribute("sinResultados",	 false);
+    	
+    	return "tarea_list_view";
+    	
+    	} catch(NotFoundException ex) {
+    		model.addAttribute("sinResultados", true);
+    		return "tarea_list_view";
+    	}
+    }
+    
+    @GetMapping("/tarea-delete")
+    @ResponseBody
+    public String deleteTarea(@RequestParam int codigo) {
+    	
+    	try {
+    		Tarea tarea = tareaRepository.get(codigo);
+    		tareaRepository.remove(tarea);
+    		return "redirect:/tareas";
+    		
+    	}catch(NotFoundException ex) {
+    		return "<html>"+ ex.getMessage()+"</html>";
     	}
     }
 

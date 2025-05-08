@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+	<h1>Listado de tareas 
+		<span th:if="${usuario != null}"> 
+			<span th:text="${usuario}"></span> 
+		</span>
+	</h1>
+	
+	<div>
+		<a th:href="@{/tarea-form}"> Añadir Tarea </a>
+	</div>
+	
+	<br>
+	
+	<table th:if="${sinResultados==false}"> 
+		<tr> 
+			<th>Codi</th> 
+			<th>Usuari</th> 
+			<th>Descripció</th> 
+			<th>Venciment</th> 
+			<th>Accions</th> 
+		</tr> 
+		<tr th:each="item : ${tareas}"> 
+			<td th:text="${item.codigo}"></td> 
+			<td th:text="${item.usuario}"></td> 
+			<td th:text="${item.descripcion}"></td> 
+			<td th:text="${#temporals.format(item.fechaVencimiento, 'dd-MM-yyyy')}"></td> 
+			<td><a th:href="@{/tarea-delete(codTarea=${item.codigo})}">Borrar</a></td>
+			<td><a th:href="@{/tarea(codTarea=${item.codigo})}">Detalle</a></td> 
+		</tr> 
+	</table> 
+	
+	<div th:unless="${sinResultados==false}">
+		No existen
+	</div>
+	
+</body>
+</html>

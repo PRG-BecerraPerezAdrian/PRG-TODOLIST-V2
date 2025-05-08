@@ -30,6 +30,10 @@ public class TareaRepository {
     public void add(Tarea tarea) {
         this.tareas.add(tarea);
     }
+    
+    public void remove(Tarea tarea) {
+        this.tareas.remove(tarea);
+    }
 
     /**
      * Obtiene la Tarea con codigo @codTarea. En caso de que no la encuentre devolverá una excepción
@@ -52,14 +56,25 @@ public class TareaRepository {
      *  Devuelve el listado de todas las tareas.
      */
     public ArrayList<Tarea> findAll() {
-        return null;
+        return tareas;
     }
 
     /**
      *  Devuelve el listado de todas las tareas cuyo atributo nombre coincide con @user
      */
-    public ArrayList<Tarea> findAll(String user) {
-        return null;
+    public ArrayList<Tarea> findAll(String user) throws NotFoundException{
+        ArrayList<Tarea> tareasDeUsuario = new ArrayList<>();
+        for (Tarea tarea : tareas) {
+			if (tarea.getUsuario().equals(user)) {
+				tareasDeUsuario.add(tarea);
+			}
+		}
+        
+        if (tareasDeUsuario.isEmpty()) {
+        	throw new NotFoundException("No hay tareas de " + user);
+        }
+        return tareasDeUsuario;
+        
     }
 
 }

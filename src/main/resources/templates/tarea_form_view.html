@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Gestor Tareas</title>
-</head>
-<body>
-<h1>Añadir Nueva Tarea</h1>
-<form action="/tarea-add" method="post">
-    <label>Codigo: <input name="code" type="number" required/></label><br>
-    <label>Nombre: <input name="user" type="text" required/></label><br>
-    <label>Descripción: <input name="description" type="text" required/></label><br>
-	<label>Prioridad: 
-		<select name="prioridad" required>
-			<option>Alta</option>
-			<option>Media</option>
-			<option>Baja</option>
-		</select>
-	</label><br>
-	<label>Realizada: <input type="checkbox" name="realizada"/></label><br>
-	<label>Fecha vencimiento:<input type="date" name="fechaVenc" required/></label><br>
-	<label>Hora vencimiento:<input type="time" name="horaVenc" required/></label><br>
+	<head>
+	    <meta charset="UTF-8">
+	    <title>Gestor Tareas</title>
+	</head>
+	<body>
+		
+		<h1>Añadir Nueva Tarea</h1>
+			<form action="/tarea-add" method="post">
+			    <label>Codigo: <input name="code" type="number" required/></label><br>
+			    <label>Nombre: <input name="user" type="text" required/></label><br>
+			    <label>Descripción: <input name="description" type="text" required/></label><br>
+				<label>Prioridad: 
+					<select name="prioridad" required>
+						<option>Alta</option>
+						<option>Media</option>
+						<option>Baja</option>
+					</select>
+				</label><br>
+				<label>Realizada: <input type="checkbox" name="realizada"/></label><br>
+				<label>Fecha vencimiento:<input type="date" name="fechaVenc" required/></label><br>
+				<label>Hora vencimiento:<input type="time" name="horaVenc" required/></label><br>
+						
+			    <input type="submit" value="añadir" required><br>
+			</form>
+		
+			<div>
+				<a th:href="@{/tareas}"> Volver al listado </a>
+			</div>
 			
-    <input type="submit" value="añadir" required><br>
-</form>
-</body>
+	</body>
 </html>
